@@ -34,6 +34,7 @@ namespace SnitchGame
             // TODO: Add your initialization logic here
 
             gameObject = new GameObject(Content.Load<Texture2D>("block"), new Vector2(200, 200));
+            gameObject.PhysicsComponent = new PhysicsComponent(gameObject);
 
             base.Initialize();
         }
@@ -69,8 +70,7 @@ namespace SnitchGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            gameObject.Instructions(Keyboard.GetState());
-            gameObject.Physics();
+            gameObject.Update(Keyboard.GetState());
 
             // TODO: Add your update logic here
 
