@@ -12,12 +12,13 @@ namespace SnitchGame
 {
     class GameObject
     {
+        public static float TAO = (float)(2 * Math.PI);
         private const int MAX_SPEED = 10;
-        private const float TAO = (float)(2 * Math.PI);
 
         public Texture2D Image { get; set; }
         public Vector2 Position { get; set; }
-        public float Speed { get; set; }
+        public Vector2 Velocity { get; set; }
+        public float Acceleration { get; set; }
         public float Angle { get; set; }
 
         private PhysicsComponent physicsComponent;
@@ -27,7 +28,8 @@ namespace SnitchGame
         public GameObject(Texture2D image, Vector2 position)
         {
             this.Position = position;
-            this.Speed = 0;
+            this.Velocity = new Vector2();
+            this.Acceleration = 0;
             this.Angle = 0;
             this.Image = image;
         }
@@ -41,18 +43,16 @@ namespace SnitchGame
         private void Instructions(KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.A))
-                Angle = (Angle - .025f) % TAO;
+                Angle = (Angle - .05f) % TAO;
             if (keyboardState.IsKeyDown(Keys.D))
-                Angle = (Angle + .025f) % TAO;
-            if (keyboardState.IsKeyDown(Keys.W) && Speed < MAX_SPEED)
-                Speed += .1f;
-            if (keyboardState.IsKeyDown(Keys.S) && Speed > -MAX_SPEED)
-                Speed -= .1f;
-        }
+                Angle = (Angle + .05f) % TAO;
 
-        private void Physics()
-        {
-            
+            if (keyboardState.IsKeyDown(Keys.W))
+                Acceleration = .1f;
+            else if (keyboardState.IsKeyDown(Keys.S))
+                Acceleration = -.1f;
+            else
+                Acceleration = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
