@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnitchGame
+namespace SnitchGame.Physics
 {
-    class PhysicsComponent : Component
+    class PhysicsComponent : Component, IPhysicsComponent
     {
         const float MAX_SPEED = 10;
 
@@ -18,15 +18,37 @@ namespace SnitchGame
 
         public override void Update()
         {
+            ApplyGravity();
+            ChangeVelocity();
+            ChangePosition();
+            DetectCollision();
+        }
+
+        public void ApplyGravity()
+        {
+
+        }
+
+        public void ChangeVelocity()
+        {
             var angle = gameObject.Angle;
             var acceleration = gameObject.Acceleration;
             gameObject.Velocity += new Vector2((float)(Math.Sin(angle)) * acceleration, -(float)(Math.Cos(angle)) * acceleration);
             if (gameObject.Velocity.Length() > MAX_SPEED)
             {
-                gameObject.Velocity.Normalize();
-                gameObject.Velocity *= MAX_SPEED;
+                var normal = Vector2.Normalize(gameObject.Velocity);
+                gameObject.Velocity = normal * MAX_SPEED;
             }
+        }
+
+        public void ChangePosition()
+        {
             gameObject.Position += gameObject.Velocity;
+        }
+
+        public void DetectCollision()
+        {
+
         }
     }
 }

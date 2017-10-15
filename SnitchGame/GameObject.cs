@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SnitchGame.Instructions;
+using SnitchGame.Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,11 @@ namespace SnitchGame
         public float Acceleration { get; set; }
         public float Angle { get; set; }
 
+        private InstructionsComponent instructionsComponent;
         private PhysicsComponent physicsComponent;
 
         public PhysicsComponent PhysicsComponent { set { this.physicsComponent = value; } }
+        public InstructionsComponent InstructionsComponent { set { this.instructionsComponent = value; } }
 
         public GameObject(Texture2D image, Vector2 position)
         {
@@ -36,28 +40,16 @@ namespace SnitchGame
 
         public void Update(KeyboardState keyboardState)
         {
-            Instructions(keyboardState);
+            if (instructionsComponent != null)
+            {
+                instructionsComponent.Update();
+            }
             physicsComponent.Update();
-        }
-
-        private void Instructions(KeyboardState keyboardState)
-        {
-            if (keyboardState.IsKeyDown(Keys.A))
-                Angle = (Angle - .05f) % TAO;
-            if (keyboardState.IsKeyDown(Keys.D))
-                Angle = (Angle + .05f) % TAO;
-
-            if (keyboardState.IsKeyDown(Keys.W))
-                Acceleration = .1f;
-            else if (keyboardState.IsKeyDown(Keys.S))
-                Acceleration = -.1f;
-            else
-                Acceleration = 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Position, null, Color.White, Angle, new Vector2(25, 25), 1.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(Image, Position, null, Color.White, Angle, new Vector2(25, 25), .5f, SpriteEffects.None, 1);
         }
     }
 }

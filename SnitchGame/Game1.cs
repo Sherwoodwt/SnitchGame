@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using SnitchGame.Physics;
+using SnitchGame.Instructions;
 
 namespace SnitchGame
 {
@@ -12,7 +15,7 @@ namespace SnitchGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        GameObject gameObject;
+        List<GameObject> gameObjects;
         
         public Game1()
         {
@@ -32,9 +35,15 @@ namespace SnitchGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            gameObjects = new List<GameObject>();
+            var player = new GameObject(Content.Load<Texture2D>("block"), new Vector2(200, 200));
+            player.PhysicsComponent = new PhysicsComponent(player);
+            player.InstructionsComponent = new InstructionsComponent(player);
+            gameObjects.Add(player);
 
-            gameObject = new GameObject(Content.Load<Texture2D>("block"), new Vector2(200, 200));
-            gameObject.PhysicsComponent = new PhysicsComponent(gameObject);
+            var rock = new GameObject(Content.Load<Texture2D>("rock"), new Vector2(400, 400));
+            rock.PhysicsComponent = new PhysicsComponent(rock);
+            gameObjects.Add(rock);
 
             base.Initialize();
         }
@@ -70,7 +79,10 @@ namespace SnitchGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            gameObject.Update(Keyboard.GetState());
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(Keyboard.GetState());
+            }
 
             // TODO: Add your update logic here
 
@@ -88,7 +100,10 @@ namespace SnitchGame
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            gameObject.Draw(spriteBatch);
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(spriteBatch);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);
