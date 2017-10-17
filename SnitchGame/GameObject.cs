@@ -23,11 +23,11 @@ namespace SnitchGame
         public float Acceleration { get; set; }
         public float Angle { get; set; }
 
-        private InstructionsComponent instructionsComponent;
-        private PhysicsComponent physicsComponent;
+        private IInstructionComponent instructionsComponent;
+        private IPhysicsComponent physicsComponent;
 
-        public PhysicsComponent PhysicsComponent { set { this.physicsComponent = value; } }
-        public InstructionsComponent InstructionsComponent { set { this.instructionsComponent = value; } }
+        public IPhysicsComponent PhysicsComponent { set { this.physicsComponent = value; } }
+        public IInstructionComponent InstructionsComponent { set { this.instructionsComponent = value; } }
 
         public GameObject(Texture2D image, Vector2 position)
         {
@@ -40,10 +40,7 @@ namespace SnitchGame
 
         public void Update(KeyboardState keyboardState)
         {
-            if (instructionsComponent != null)
-            {
-                instructionsComponent.Update();
-            }
+            instructionsComponent.Update();
             physicsComponent.Update();
         }
 

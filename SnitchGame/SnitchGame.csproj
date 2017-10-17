@@ -46,7 +46,9 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IComponent.cs" />
-    <Compile Include="Instructions\InstructionsComponent.cs" />
+    <Compile Include="Instructions\IInstructionComponent.cs" />
+    <Compile Include="Instructions\InstructionComponent.cs" />
+    <Compile Include="Instructions\RockInstructionComponent.cs" />
     <Compile Include="Physics\IPhysicsComponent.cs" />
     <Compile Include="Physics\PhysicsComponent.cs" />
     <Compile Include="Program.cs" />

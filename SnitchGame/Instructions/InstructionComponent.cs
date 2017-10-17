@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SnitchGame.Instructions
 {
-    class InstructionsComponent: Component
+    class InstructionComponent: Component, IInstructionComponent
     {
-        public InstructionsComponent(GameObject gameObject)
+        public InstructionComponent(GameObject gameObject)
             : base(gameObject)
         {
         }

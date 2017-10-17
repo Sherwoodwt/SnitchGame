@@ -10,6 +10,8 @@ namespace SnitchGame
     {
         protected GameObject gameObject;
 
+        public GameObject GameObject { get { return this.gameObject; } }
+
         public Component(GameObject gameObject)
         {
             this.gameObject = gameObject;

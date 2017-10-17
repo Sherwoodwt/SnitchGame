@@ -11,9 +11,21 @@ namespace SnitchGame.Physics
     {
         const float MAX_SPEED = 10;
 
-        public PhysicsComponent(GameObject gameObject)
+        List<GameObject> gameObjects;
+        
+        public float Mass { get; set; }
+        public float Size { get; set; }
+
+        public bool HasGravity { get { return Mass > 0; } }
+        public bool CanCollide { get { return Size > 0; } }
+
+        public PhysicsComponent(GameObject gameObject, List<GameObject> gameObjects)
             : base(gameObject)
         {
+            this.gameObjects = gameObjects;
+
+            Size = 0;
+            Mass = 0;
         }
 
         public override void Update()
@@ -26,7 +38,10 @@ namespace SnitchGame.Physics
 
         public void ApplyGravity()
         {
-
+            if (HasGravity)
+            {
+                
+            }
         }
 
         public void ChangeVelocity()
@@ -48,7 +63,10 @@ namespace SnitchGame.Physics
 
         public void DetectCollision()
         {
+            if (CanCollide)
+            {
 
+            }
         }
     }
 }

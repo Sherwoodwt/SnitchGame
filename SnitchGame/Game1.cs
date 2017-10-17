@@ -37,12 +37,24 @@ namespace SnitchGame
             // TODO: Add your initialization logic here
             gameObjects = new List<GameObject>();
             var player = new GameObject(Content.Load<Texture2D>("block"), new Vector2(200, 200));
-            player.PhysicsComponent = new PhysicsComponent(player);
-            player.InstructionsComponent = new InstructionsComponent(player);
+            player.PhysicsComponent = new PhysicsComponent(player, gameObjects)
+            {
+                Size = 1,
+                Mass = 1,
+            };
+            player.InstructionsComponent = new InstructionComponent(player);
             gameObjects.Add(player);
 
-            var rock = new GameObject(Content.Load<Texture2D>("rock"), new Vector2(400, 400));
-            rock.PhysicsComponent = new PhysicsComponent(rock);
+            var rock = new GameObject(Content.Load<Texture2D>("rock"), new Vector2(400, 400))
+            {
+                Velocity = new Vector2(-.5f, -.5f),
+            };
+            rock.PhysicsComponent = new PhysicsComponent(rock, gameObjects)
+            {
+                Size= 1,
+                Mass= 1,
+            };
+            rock.InstructionsComponent = new RockInstructionComponent(rock);
             gameObjects.Add(rock);
 
             base.Initialize();

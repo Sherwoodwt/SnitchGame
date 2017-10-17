@@ -8,7 +8,6 @@ namespace SnitchGame.Physics
 {
     interface IPhysicsComponent : IComponent
     {
-        void ApplyGravity();
         void ChangeVelocity();
         void ChangePosition();
         void DetectCollision();
